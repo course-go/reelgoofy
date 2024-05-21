@@ -1,4 +1,4 @@
-# ReelGoofy
+# ReelGoofy: REST API & Testing
 
 ReelGoofy is movie recommendation service. This project serves as a template for the third homework assignment. The fourth and fifth assignments continue building upon this project. To learn more about the homework assignments in general, visit the [homework](https://github.com/course-go/homework) repository.
 
