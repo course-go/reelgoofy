@@ -24,7 +24,7 @@ The API is specified using the OpenAPI standard. The specification itself can be
 
 The API will require you to implement a recommendation algorithm. There is no need to come up with a complex solution. A simple one will do. 
 
-The ingested data gives you a lot of flexibility on how to approach this, as it provides many arguments. Feel free to use, aggregate, or ignore them as you wish.
+The ingested data gives you a lot of flexibility on how to approach this, as it provides many arguments. Feel free to use, aggregate, or ignore them as you wish. The data should, for now, be stored just in-memory. We will look at persistance in the following homework.
 
 ### Bonus
 
