@@ -68,3 +68,8 @@ complies with common Go conventions.
 The main goal of this homework is to practice
 implementing a REST API in Go.
 Additionally, it showcases the OpenAPI specification and demonstrates its usage.
+
+## Packages
+
+For generating the IDs you can use
+the [UUID](https://pkg.go.dev/github.com/google/uuid) package for Go.
