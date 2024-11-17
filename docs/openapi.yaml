@@ -3,14 +3,15 @@ info:
   title: ReelGoofy API
   version: '1.0.0'
   description: |
-    ### The API can:
+    ### The recommendation service can:
     * Ingest and delete review data
     * Recommend content to content
     * Recommend content to users
+
+    The response types comply with the simple [JSend](https://github.com/omniti-labs/jsend) standard.
   license:
     name: CC BY-SA 4.0 DEED
     url: https://creativecommons.org/licenses/by-sa/4.0/deed.en
-
 servers:
   - url: http://localhost:{port}/{basePath}
     description: Localhost development server
@@ -19,35 +20,33 @@ servers:
         default: '8080'
       basePath:
         default: api/v1
-
 tags:
-  - name: ingest
-    description: Recommendation data ingest endpoints
+  - name: reviews
+    description: Content review endpoints
   - name: recommendations
     description: Content recommendation endpoints
-
 paths:
   /reviews:
-    put:
+    post:
       tags:
-        - ingest
+        - reviews
       summary: Ingest review data
-      description: Ingest new review data that can be further aggregated and on which, recommendations can be made.
+      description: Ingest new review data based on which recommendations can be made.
       operationId: ingestReviews
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/reviewsRequest'
+              $ref: '#/components/schemas/rawReviewsRequest'
       responses:
-        '200':
+        '201':
           description: Successfully ingested data
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/reviewsSuccessResponse'
         '400':
-          description: Supplied data format is invalid
+          description: Supplied data format or values are invalid
           content:
             application/json:
               schema:
@@ -58,11 +57,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/reviewsErrorResponse'
-
   /reviews/{reviewId}:
     delete:
       tags:
-        - ingest
+        - reviews
       summary: Delete review data
       description: Deletes review data related to the given ID.
       operationId: deleteReview
@@ -73,10 +71,10 @@ paths:
           required: true
           schema:
             type: string
-            examples: 
+            examples:
               - 733b9f08-710d-4abf-93f9-7353ed2b4e08
       responses:
-        '200':
+        '204':
           description: Successfully deleted data
           content:
             application/json:
@@ -85,7 +83,6 @@ paths:
                 examples:
                   - status: success
                     data: null
-                    code: 200
         '400':
           description: Supplied data is invalid
           content:
@@ -102,14 +99,12 @@ paths:
                   - status: "fail"
                     data:
                       id: ID not found.
-                    code: 404
         '500':
           description: Internal server error occured
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/reviewsErrorResponse'
-
   /recommendations/content/{contentId}/content:
     get:
       tags:
@@ -124,7 +119,7 @@ paths:
           required: true
           schema:
             type: string
-            examples: 
+            examples:
               - 4dd103ad-54d5-4bd2-a90e-57ac52e0259a
         - name: limit
           in: query
@@ -144,7 +139,7 @@ paths:
               - 100
       responses:
         '200':
-          description: Successfully ingested data
+          description: Successfully recommended data
           content:
             application/json:
               schema:
@@ -155,13 +150,26 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/recommendationsFailResponse'
+                examples:
+                  - status: "fail"
+                    data:
+                      contentID: ID is not a valid UUID.
+        '404':
+          description: No such content found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/recommendationsFailResponse'
+                examples:
+                  - status: "fail"
+                    data:
+                      contentId: Content with such ID not found.
         '500':
           description: Internal server error occured
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/recommendationsErrorResponse'
-
   /recommendations/users/{userId}/content:
     get:
       tags:
@@ -176,7 +184,7 @@ paths:
           required: true
           schema:
             type: string
-            examples: 
+            examples:
               - 4dd103ad-54d5-4bd2-a90e-57ac52e0259a
         - name: limit
           in: query
@@ -196,7 +204,7 @@ paths:
               - 100
       responses:
         '200':
-          description: Successfully ingested data
+          description: Successfully recommended data
           content:
             application/json:
               schema:
@@ -207,29 +215,36 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/recommendationsFailResponse'
+                examples:
+                  - status: "fail"
+                    data:
+                      limit: Limit must be non-negative integer.
+        '404':
+          description: No such user found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/recommendationsFailResponse'
+                examples:
+                  - status: "fail"
+                    data:
+                      userId: User with such ID not found.
         '500':
           description: Internal server error occured
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/recommendationsErrorResponse'
-
 components:
   schemas:
-    review:
+    rawReview:
       type: object
       required:
-        - id
         - contentId
         - userId
         - review
         - score
       properties:
-        id:
-          type: string
-          examples:
-            - 55a01151-d41f-430c-bc94-a728be36a2e0
-            - efa36036-c3cc-4498-9011-78b6afd83502
         contentId:
           type: string
           examples:
@@ -243,7 +258,7 @@ components:
         title:
           type: string
           examples:
-            -  One Flew over the Cuckoo's Nest
+            - One Flew over the Cuckoo's Nest
         genres:
           type: array
           items:
@@ -302,6 +317,25 @@ components:
           examples:
             - 75
             - 21
+    review:
+      allOf:
+        - type: object
+          required:
+            - id
+          properties:
+            id:
+              type: string
+              examples:
+                - 55a01151-d41f-430c-bc94-a728be36a2e0
+                - efa36036-c3cc-4498-9011-78b6afd83502
+        - $ref: '#/components/schemas/rawReview'
+    rawReviews:
+      type: object
+      properties:
+        reviews:
+          type: array
+          items:
+            $ref: '#/components/schemas/rawReview'
     reviews:
       type: object
       properties:
@@ -336,14 +370,11 @@ components:
     status:
       type: string
       enum: [success, fail, error]
-    reviewsRequest:
+    rawReviewsRequest:
       type: object
       properties:
         data:
-          type: object
-          properties:
-            reviews:
-              $ref: '#/components/schemas/review'
+          $ref: '#/components/schemas/rawReviews'
     reviewsSuccessResponse:
       type: object
       required:
@@ -356,10 +387,6 @@ components:
             - "success"
         data:
           $ref: '#/components/schemas/reviews'
-        code:
-          type: integer
-          examples:
-            - 200
     reviewsFailResponse:
       type: object
       required:
@@ -374,10 +401,6 @@ components:
           type: object
           examples:
             - id: ID is not valid UUID.
-        code:
-          type: integer
-          examples:
-            - 400
     reviewsErrorResponse:
       type: object
       required:
@@ -390,13 +413,15 @@ components:
             - "error"
         message:
           type: string
-          examples: 
+          examples:
             - "Unable to communicate with database"
             - "Could not contact an external service"
         code:
           type: integer
           examples:
             - 500
+        data:
+          type: object
     recommendationsSuccessResponse:
       type: object
       required:
@@ -409,10 +434,6 @@ components:
             - "success"
         data:
           $ref: '#/components/schemas/recommendations'
-        code:
-          type: integer
-          examples:
-            - 200
     recommendationsFailResponse:
       type: object
       required:
@@ -427,10 +448,6 @@ components:
           type: object
           examples:
             - id: ID is not valid UUID.
-        code:
-          type: integer
-          examples:
-            - 400
     recommendationsErrorResponse:
       type: object
       required:
@@ -443,10 +460,12 @@ components:
             - "error"
         message:
           type: string
-          examples: 
+          examples:
             - "Unable to communicate with database"
             - "Could not contact an external service"
         code:
           type: integer
           examples:
             - 500
+        data:
+          type: object
