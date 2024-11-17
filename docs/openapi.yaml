@@ -31,7 +31,7 @@ paths:
       tags:
         - reviews
       summary: Ingest review data
-      description: Ingest new review data based on which recommendations can be made.
+      description: Ingest new review data using which recommendations can be made.
       operationId: ingestReviews
       requestBody:
         content:
@@ -89,6 +89,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/reviewsFailResponse'
+                examples:
+                  - status: "fail"
+                    data:
+                      reviewId: ID is not a valid UUID.
         '404':
           description: No such review data found
           content:
@@ -98,7 +102,7 @@ paths:
                 examples:
                   - status: "fail"
                     data:
-                      id: ID not found.
+                      reviewId: Review with such ID not found.
         '500':
           description: Internal server error occured
           content:
