@@ -51,6 +51,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/reviewsFailResponse'
+                examples:
+                  - status: "fail"
+                    data:
+                      contentId: ID is not a valid UUID.
+                      userId: ID is not a valid UUID.
+                      released: Invalid date formats.
         '500':
           description: Internal server error occured
           content:
