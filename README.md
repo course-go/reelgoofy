@@ -15,7 +15,6 @@ To implement the API you can choose whatever router or web framework you want.
 Here are just some of the possible options:
 
 - [net/http](https://pkg.go.dev/net/http)
-- [gorilla](https://github.com/gorilla/mux)
 - [chi](https://github.com/go-chi/chi)
 - [gin](https://github.com/gin-gonic/gin)
 - [echo](https://github.com/labstack/echo)
