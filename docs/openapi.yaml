@@ -32,7 +32,7 @@ paths:
       tags:
         - reviews
       summary: Ingest review data
-      description: Ingest new review data using which recommendations can be made.
+      description: Ingest new review data. Recommendations are then made using this review data.
       operationId: ingestReviews
       requestBody:
         content:
@@ -41,13 +41,13 @@ paths:
               $ref: '#/components/schemas/rawReviewsRequest'
       responses:
         '201':
-          description: Successfully ingested data
+          description: Successfully ingested reviews
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/reviewsSuccessResponse'
         '400':
-          description: Supplied data format or values are invalid
+          description: Supplied data format or review values are invalid
           content:
             application/json:
               schema:
@@ -82,7 +82,7 @@ paths:
               - 733b9f08-710d-4abf-93f9-7353ed2b4e08
       responses:
         '200':
-          description: Successfully deleted data
+          description: Successfully deleted review
           content:
             application/json:
               schema:
@@ -101,7 +101,7 @@ paths:
                     data:
                       reviewId: ID is not a valid UUID.
         '404':
-          description: No such review data found
+          description: No such review found
           content:
             application/json:
               schema:
@@ -121,7 +121,7 @@ paths:
       tags:
         - recommendations
       summary: Recommend content to content
-      description: Recommends content to a content specified by the contentId based on available data.
+      description: Recommends content to a content specified by the contentId based on available review data.
       operationId: recommendContentToContent
       parameters:
         - name: contentId
@@ -150,7 +150,7 @@ paths:
               - 100
       responses:
         '200':
-          description: Successfully recommended data
+          description: Successfully recommended content
           content:
             application/json:
               schema:
@@ -186,7 +186,7 @@ paths:
       tags:
         - recommendations
       summary: Recommend content to user
-      description: Recommends content to a user specified by the userId based on available data.
+      description: Recommends content to a user specified by the userId based on available review data.
       operationId: recommendContentToUser
       parameters:
         - name: userId
@@ -215,7 +215,7 @@ paths:
               - 100
       responses:
         '200':
-          description: Successfully recommended data
+          description: Successfully recommended content
           content:
             application/json:
               schema:
