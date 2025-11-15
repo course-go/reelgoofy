@@ -1,3 +1,4 @@
+---
 openapi: 3.1.0
 info:
   title: ReelGoofy API
@@ -80,7 +81,7 @@ paths:
             examples:
               - 733b9f08-710d-4abf-93f9-7353ed2b4e08
       responses:
-        '204':
+        '200':
           description: Successfully deleted data
           content:
             application/json:
