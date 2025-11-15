@@ -1,0 +1,6 @@
+---
+name: Reelgoofy CI
+on: pull_request
+jobs:
+  reelgoofy-ci:
+    uses: course-go/homework/.github/workflows/reelgoofy.yaml@master
