@@ -60,9 +60,13 @@ The suggested approach is to write Go API tests
 [in parallel](https://martinfowler.com/bliki/TestDrivenDevelopment.html)
 (see [Bonus](#bonus)) to coding the actual implementation.
 If you do not want to implement automated tests you can just manually
-test the application using tools like `curl` or GUI applications like
+test the application using tools like `curl`
+(you can generate the commands from the specification in the editor) or
+GUI applications like
 [Postman](https://www.postman.com/)
-or [Insomnia](https://insomnia.rest/).
+or [Insomnia](https://insomnia.rest/)
+(you can import the specification and they will generate request
+collection for you).
 
 ### Bonus
 
