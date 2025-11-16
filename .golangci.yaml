@@ -23,6 +23,10 @@ linters:
       threshold: 300
     cyclop:
       max-complexity: 16
+    revive:
+      rules:
+        - name: package-comments
+          disabled: true
 
 formatters:
   enable:
