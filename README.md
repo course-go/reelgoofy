@@ -1,6 +1,8 @@
 # ReelGoofy: REST API & Testing
 
 ReelGoofy is movie recommendation service.
+It ingests movie reviews created by users and generates recommendations
+based on the review data.
 
 This project serves as a template for the homework assignment.
 To learn more about the homework assignments in general, visit
