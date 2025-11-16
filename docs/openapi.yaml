@@ -59,7 +59,7 @@ paths:
                       userId: ID is not a valid UUID.
                       released: Invalid date formats.
         '500':
-          description: Internal server error occured
+          description: Internal server error occurred
           content:
             application/json:
               schema:
@@ -111,7 +111,7 @@ paths:
                     data:
                       reviewId: Review with such ID not found.
         '500':
-          description: Internal server error occured
+          description: Internal server error occurred
           content:
             application/json:
               schema:
@@ -176,7 +176,7 @@ paths:
                     data:
                       contentId: Content with such ID not found.
         '500':
-          description: Internal server error occured
+          description: Internal server error occurred
           content:
             application/json:
               schema:
@@ -241,7 +241,7 @@ paths:
                     data:
                       userId: User with such ID not found.
         '500':
-          description: Internal server error occured
+          description: Internal server error occurred
           content:
             application/json:
               schema:
