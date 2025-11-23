@@ -80,6 +80,8 @@ implementing a test suite testing the API in Go.
 
 A minimal set of tests just to cover the basic functionality will do.
 
+If you decide to implement the bonus, please do so in an additional commit/s.
+
 ## Requirements
 
 The implemented API complies with the OpenAPI specification.
