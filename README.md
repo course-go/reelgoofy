@@ -1,6 +1,6 @@
 # ReelGoofy: REST API & Testing
 
-ReelGoofy is movie recommendation service.
+ReelGoofy is a movie recommendation service.
 It ingests movie reviews created by users and generates recommendations
 based on the review data.
 
@@ -57,7 +57,7 @@ We will look at persistence in the following homework.
 
 ### Testing
 
-To verify your solution does what it is suppose to, you need to test it.
+To verify your solution does what it is supposed to, you need to test it.
 The suggested approach is to write Go API tests
 [in parallel](https://martinfowler.com/bliki/TestDrivenDevelopment.html)
 (see [Bonus](#bonus)) to coding the actual implementation.
@@ -67,7 +67,7 @@ test the application using tools like `curl`
 GUI applications like
 [Postman](https://www.postman.com/)
 or [Insomnia](https://insomnia.rest/)
-(you can import the specification and they will generate request
+(you can import the specification and they will generate a request
 collection for you).
 
 ### Bonus
@@ -86,7 +86,7 @@ If you decide to implement the bonus, please do so in an additional commit/s.
 
 The implemented API complies with the OpenAPI specification.
 The router/web framework choice is documented in the specified file.
-All code is written in a idiomatic way, it is reasonably structured,
+All code is written in an idiomatic way, it is reasonably structured,
 contains no data races and complies with common Go conventions.
 
 ## Motivation
