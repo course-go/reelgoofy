@@ -9,6 +9,7 @@ linters:
   disable:
     # restrictive
     - exhaustruct
+    - exhaustruct_v5
     - varnamelen
     - nlreturn
     - funlen
@@ -18,6 +19,8 @@ linters:
     - err113
     - depguard
     - wsl_v5
+    # deprecated
+    - gomodguard
   settings:
     dupl:
       threshold: 300
@@ -38,6 +41,8 @@ formatters:
   settings:
     golines:
       max-len: 120
+      # tag alignment is enforced by the tagalign linter
+      reformat-tags: false
 
 output:
   formats:
